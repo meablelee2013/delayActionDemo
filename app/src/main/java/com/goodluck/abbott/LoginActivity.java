@@ -30,7 +30,7 @@ public class LoginActivity extends AppCompatActivity {
         findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(LoginActivity.this,"登录成功",Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
                 UserConfigCache.setLogin(LoginActivity.this, true);
                 //这里继续
                 SingleCall.getInstance().doCall();

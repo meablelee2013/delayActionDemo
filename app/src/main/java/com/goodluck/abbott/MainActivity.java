@@ -9,7 +9,7 @@ import com.goodluck.abbott.valid.LoginValid;
 import com.toptechs.libaction.action.Action;
 import com.toptechs.libaction.action.SingleCall;
 
-public class MainActivity extends AppCompatActivity implements Action {
+public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,7 +23,12 @@ public class MainActivity extends AppCompatActivity implements Action {
 
 
                 SingleCall.getInstance()
-                        .addAction(MainActivity.this)
+                        .addAction(new Action() {
+                            @Override
+                            public void call() {
+                                OrderDetailActivity.startActivity(MainActivity.this, "1234");
+                            }
+                        })
                         .addValid(new LoginValid(MainActivity.this))
                         .doCall();
 
@@ -36,9 +41,13 @@ public class MainActivity extends AppCompatActivity implements Action {
             public void onClick(View v) {
 
 
-
                 SingleCall.getInstance()
-                        .addAction(MainActivity.this)
+                        .addAction(new Action() {
+                            @Override
+                            public void call() {
+                                OrderDetailActivity.startActivity(MainActivity.this, "1234");
+                            }
+                        })
                         .addValid(new LoginValid(MainActivity.this))
                         .addValid(new DiscountValid(MainActivity.this))
                         .doCall();
@@ -60,11 +69,5 @@ public class MainActivity extends AppCompatActivity implements Action {
                 UserConfigCache.setDiscount(MainActivity.this, false);
             }
         });
-    }
-
-
-    @Override
-    public void call() {
-        OrderDetailActivity.startActivity(MainActivity.this, "1234");
     }
 }
