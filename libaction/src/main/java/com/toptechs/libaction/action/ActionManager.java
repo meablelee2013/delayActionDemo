@@ -38,7 +38,7 @@ public class ActionManager {
         callUnit.check();
         //如果全部满足，则直接跳转目标方法
         if (callUnit.getValidQueue().size() == 0) {
-            callUnit.getAction().call();
+            callUnit.getAction().doAction();
         } else {
             //加入到延迟执行体中来
             delaysActions.push(callUnit);
@@ -60,7 +60,7 @@ public class ActionManager {
     public void postCallUnit(Action action) {
         Class clz = action.getClass();
         try {
-            Method method = clz.getMethod("call");
+            Method method = clz.getMethod("doAction");
             Interceptor interceptor = method.getAnnotation(Interceptor.class);
             Class<? extends Valid>[] clzArray = interceptor.value();
             CallUnit callUnit = new CallUnit(action);
@@ -98,7 +98,7 @@ public class ActionManager {
                 validQueue.remove(callUnit.getLastValid());
                 //valid已经执行完了，则表示此delay已经检验完了--执行目标方法
                 if (validQueue.size() == 0) {
-                    callUnit.getAction().call();
+                    callUnit.getAction().doAction();
                     //把这个任务移出
                     delaysActions.remove(callUnit);
                 } else {
@@ -111,7 +111,6 @@ public class ActionManager {
             }
         }
     }
-
 
 
 }

@@ -5,5 +5,5 @@ package com.toptechs.libaction.action;
  */
 
 public interface Action {
-    void call();
+    void doAction();
 }

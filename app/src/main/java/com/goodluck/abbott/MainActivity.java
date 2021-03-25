@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
                 SingleCall.getInstance()
                         .addAction(new Action() {
                             @Override
-                            public void call() {
+                            public void doAction() {
                                 OrderDetailActivity.startActivity(MainActivity.this, "1234");
                             }
                         })
@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
                 SingleCall.getInstance()
                         .addAction(new Action() {
                             @Override
-                            public void call() {
+                            public void doAction() {
                                 OrderDetailActivity.startActivity(MainActivity.this, "1234");
                             }
                         })

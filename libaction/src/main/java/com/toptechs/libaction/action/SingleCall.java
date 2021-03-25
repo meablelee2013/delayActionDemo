@@ -2,7 +2,7 @@ package com.toptechs.libaction.action;
 
 /**
  * Created by jinyabo on 13/12/2017.
- *
+ * <p>
  * 如果CallUnit验证模型中没有嵌套的验证模型，则可以直接使用SingleCall即可
  */
 
@@ -10,35 +10,35 @@ public class SingleCall {
 
     CallUnit callUnit = new CallUnit();
 
-    public SingleCall addAction(Action action){
+    public SingleCall addAction(Action action) {
         clear();
         callUnit.setAction(action);
         return this;
     }
 
 
-    public SingleCall addValid(Valid valid){
+    public SingleCall addValid(Valid valid) {
         //只添加无效的，验证不通过的。
-        if(valid.check()){
+        if (valid.check()) {
             return this;
         }
         callUnit.addValid(valid);
         return this;
     }
 
-    public void doCall(){
+    public void doCall() {
 
         //如果上一条valid难没有通过，是不允许再发起call的
-        if(callUnit.getLastValid() != null && !callUnit.getLastValid().check() ){
+        if (callUnit.getLastValid() != null && !callUnit.getLastValid().check()) {
             return;
         }
 
         //执行action
-        if(callUnit.getValidQueue().size() == 0 && callUnit.getAction() != null){
-            callUnit.getAction().call();
+        if (callUnit.getValidQueue().size() == 0 && callUnit.getAction() != null) {
+            callUnit.getAction().doAction();
             //清空
             clear();
-        }else{
+        } else {
             //执行验证。
             Valid valid = callUnit.getValidQueue().poll();
             callUnit.setLastValid(valid);
@@ -47,7 +47,7 @@ public class SingleCall {
 
     }
 
-    public void clear(){
+    public void clear() {
         callUnit.getValidQueue().clear();
         callUnit.setAction(null);
         callUnit.setLastValid(null);
